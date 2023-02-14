@@ -1,6 +1,6 @@
 /**
  * class abstraite de facon `a donner le
- * type Victime a l�ensemble de objets
+ * type Victime a l'ensemble de objets
  *
  * @author bardet1u
  */
@@ -11,7 +11,7 @@ abstract class Victime {
 
     public abstract int subitCharme(int coup);
 
-    public abstract boolean mort();
+    public abstract boolean etreMort();
 
     public abstract String getNom();
 

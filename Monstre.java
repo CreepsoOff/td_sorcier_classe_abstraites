@@ -37,7 +37,7 @@ class Monstre extends Personnage {
      * @param v la victime adverse
      */
     public void attaque(Victime v) {
-        if (!mort())
+        if (!etreMort())
             addVie(-v.subitFrappe(getVie() / 2));
     }
 
@@ -63,6 +63,11 @@ class Monstre extends Personnage {
         addVie(-coup);
         int blessure = (getVie() / 2);
         return blessure;
+    }
+
+    @Override
+    public String toString() {
+        return this.etreMort() ? "Le monstre " + this.getNom() + " est mort" : "Je m'appelle " + this.getNom() + " (Monstre) et j'ai " + this.getVie() + " points de vie";
     }
 
 }

@@ -18,7 +18,7 @@ class NainJardin extends Victime {
         return solidite;
     }
 
-    public boolean mort() {
+    public boolean etreMort() {
 		return solidite <= 0;
     }
 
@@ -54,5 +54,13 @@ class NainJardin extends Victime {
     }
 
     public void attaque(Victime v) {
+    }
+
+    public String getType() {
+        return "Nain de jardin";
+    }
+
+    public String toString() {
+        return this.etreMort() ? "Nain de jardin " + this.getNom() + " est mort" : "Je m'appelle " + this.getNom() + " (NainJardin) et j'ai " + this.getSolidite() + " points de solidite";
     }
 }

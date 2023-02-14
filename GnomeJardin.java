@@ -10,7 +10,7 @@ class GnomeJardin extends NainJardin implements SuperPouvoir {
      *
      * @return intensite du sort
      */
-    public double sort() {
+    public double lancerSort() {
         return Math.random() * getSolidite();
     }
 
@@ -32,10 +32,14 @@ class GnomeJardin extends NainJardin implements SuperPouvoir {
      * il renvoie la valeur de ce coup
      */
     public int subitCharme(int coup) {
-        if (sort() > coup)
+        if (lancerSort() > coup)
             return -coup;
         else
-            return (int) sort();
+            return (int) lancerSort();
+    }
+
+    public String toString() {
+        return this.etreMort() ? "Gnome " + this.getNom() + " est mort" : "Je m'appelle " + this.getNom() + " (Gnome) et j'ai " + this.getSolidite() + " points de solidite";
     }
 
 

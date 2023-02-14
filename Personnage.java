@@ -47,8 +47,8 @@ abstract class Personnage extends Victime {
      *
      * @return true si mort
      */
-    public boolean mort() {
-		return getVie() <= 0;
+    public boolean etreMort() {
+        return getVie() <= 0;
     }
 
     /**
@@ -101,13 +101,11 @@ abstract class Personnage extends Victime {
 
     /**
      * methode pour afficher un personnage
-     *
-     * @param Personnage p
      */
     public String toString() {
         String s1 = ("Je m'appelle " + getNom() + " et j'ai " + getVie() + " points de vie");
         String s2 = (getNom() + " est mort. \n");
-        if (mort())
+        if (etreMort())
             return s2;
         else
             return s1;

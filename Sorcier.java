@@ -4,7 +4,7 @@
  * @author Morgane
  * un sorcier peut lancer des charmes / sorts
  * mais pas des coups
- * @see classe Personnage
+ * @see Personnage
  */
 
 class Sorcier extends Personnage {
@@ -17,7 +17,7 @@ class Sorcier extends Personnage {
      *
      * @param n     le nom du sorcier
      * @param pv    le nombre de points de vie au depart
-     * @param power le nombre au hasard, entre 0 et 1, de son pouvoir
+     * //@param power le nombre au hasard, entre 0 et 1, de son pouvoir
      */
     Sorcier(String n, int pv) {
         super(n, pv);
@@ -47,7 +47,7 @@ class Sorcier extends Personnage {
      * @param v la victime adverse
      */
     public void attaque(Victime v) {
-        if (!mort())
+        if (!etreMort())
             addVie(v.subitCharme((int) (getVie() * getPouvoir() / 2)));
     }
 
@@ -72,6 +72,12 @@ class Sorcier extends Personnage {
      */
     public int subitCharme(int coup) {
         return 0;
+    }
+
+
+    @Override
+    public String toString() {
+        return this.etreMort() ? "Sorcier " + this.getNom() + " est mort" : "Je m'appelle " + this.getNom() + " (Sorcier) et j'ai " + this.getVie() + " points de vie";
     }
 
 }

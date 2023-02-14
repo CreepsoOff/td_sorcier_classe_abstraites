@@ -1,7 +1,7 @@
 /**
  * classe permettant d'executer les combats
  *
- * @author Morgane
+ * @author Fabian
  * 15 victimes ont ete crees pour eviter d'en saisir � chaque lancement
  * la partie ou on peut les saisirs est entre commentaires
  */
@@ -21,9 +21,17 @@ class Principale {
         int i, j;
         j = 0;
         for (i = 0; i < victimes.length; i++)
-            if (!victimes[i].mort())
+            if (!victimes[i].etreMort())
                 j++;
         return j;
+    }
+
+    private static boolean trouveGnome_Nain() {
+        int i;
+        for (i = 0; i < victimes.length; i++)
+            if ((victimes[i] instanceof GnomeJardin) || (victimes[i] instanceof NainJardin) && (!victimes[i].etreMort()))
+                return true;
+        return false;
     }
 
 
@@ -34,7 +42,7 @@ class Principale {
     private static boolean trouveMonstres() {
         int i;
         for (i = 0; i < victimes.length; i++)
-            if ((victimes[i] instanceof Monstre) || (victimes[i] instanceof Magicien) && (!victimes[i].mort()))
+            if ((victimes[i] instanceof Monstre) || (victimes[i] instanceof Magicien) && (!victimes[i].etreMort()))
                 return true;
         return false;
     }
@@ -60,45 +68,48 @@ class Principale {
         victimes[10] = new Sorcier("Hermione", (int) (Math.random() * 100));
         victimes[11] = new Magicien("Dumbledore", (int) (Math.random() * 100));
         victimes[12] = new Magicien("Rogue", (int) (Math.random() * 100));
-        victimes[13] = new GnomeJardin((int) (Math.random() * 100));
-        victimes[14] = new NainJardin((int) (Math.random() * 100));
+        victimes[13] = new GnomeJardin((int) (Math.random() * 50));
+        victimes[14] = new NainJardin((int) (Math.random() * 50));
 
-		/*****************************************************
-		 ********* Partie permettant de saisir les noms *******
-		 ******************************************************
-
-		 //saisie des noms des monstres et instanciation du tableau
-		 String nom_monstre, nom_sorcier;
-		 int i;
-		 Monstre monstre;
-		 for (i=0; i <7; i++){
-		 System.out.println("Nom du monstre " + (i+1));
-		 monstre = new Monstre(sc.nextLine(), (int)(Math.random()*100));
-		 victimes[i]=monstre;
-		 }
-
-		 //saisie des noms des sorcier et instanciation du tableau
-		 Sorcier sorcier;
-		 for (i=7; i <9; i++){
-		 System.out.println("Nom du sorcier " +(i-6));
-		 sorcier = new Sorcier(sc.nextLine(), (int)(Math.random()*100), Math.random());
-		 victimes[i]=sorcier;
-		 }
-
-		 System.out.println("Nom du magicien ");
-		 Magicien m = new Magicien(sc.nextLine(), (int)(Math.random()*100), Math.random());
-		 victimes[i]=m;
-
-		 //saisie de 2 nains et d'1 gnome
-		 for(i=11; i<=13; i++)
-		 victimes[i-1]=new NainJardin((int)(Math.random()*100));
+        // Mettre tout les noms dans un tableau de String
 
 
-		 for(i=14; i<=15; i++)
-		 victimes[i-1]=new GnomeJardin((int)(Math.random()*100));
+        /*****************************************************
+         ********* Partie permettant de saisir les noms *******
+         ******************************************************
+
+         //saisie des noms des monstres et instanciation du tableau
+         String nom_monstre, nom_sorcier;
+         int i;
+         Monstre monstre;
+         for (i=0; i <7; i++){
+         System.out.println("Nom du monstre " + (i+1));
+         monstre = new Monstre(sc.nextLine(), (int)(Math.random()*100));
+         victimes[i]=monstre;
+         }
+
+         //saisie des noms des sorcier et instanciation du tableau
+         Sorcier sorcier;
+         for (i=7; i <9; i++){
+         System.out.println("Nom du sorcier " +(i-6));
+         sorcier = new Sorcier(sc.nextLine(), (int)(Math.random()*100), Math.random());
+         victimes[i]=sorcier;
+         }
+
+         System.out.println("Nom du magicien ");
+         Magicien m = new Magicien(sc.nextLine(), (int)(Math.random()*100), Math.random());
+         victimes[i]=m;
+
+         //saisie de 2 nains et d'1 gnome
+         for(i=11; i<=13; i++)
+         victimes[i-1]=new NainJardin((int)(Math.random()*100));
 
 
-		 */
+         for(i=14; i<=15; i++)
+         victimes[i-1]=new GnomeJardin((int)(Math.random()*100));
+
+
+         */
         /********************** Fin de saisie ********************
          ******************************************************/
 
@@ -106,21 +117,25 @@ class Principale {
     il doit y avoir au moins 2 victimes vivants
     et au moins un monstre parmis les 2
     */
-        while (nbVivants() >= 2 && trouveMonstres()) {
-            int perso1 = (int) (Math.random() * 10);
-            while (victimes[perso1].mort())
-                perso1 = (int) (Math.random() * 10);
 
-            int perso2 = (int) (Math.random() * 10);
-            while (victimes[perso2].mort() || perso1 == perso2)
-                perso2 = (int) (Math.random() * 10);
+
+        while (nbVivants() >= 2 && trouveMonstres() && trouveGnome_Nain()) {
+            int perso1 = (int) (Math.random() * 15);
+            while (victimes[perso1].etreMort())
+                perso1 = (int) (Math.random() * 15);
+
+            int perso2 = (int) (Math.random() * 15);
+            while (victimes[perso2].etreMort() || perso1 == perso2)
+                perso2 = (int) (Math.random() * 15);
 
             while (victimes[perso1] instanceof Sorcier && victimes[perso2] instanceof Sorcier) {
-                perso2 = (int) (Math.random() * 10);
-                while (victimes[perso2].mort() || perso1 == perso2) {
-                    perso2 = (int) (Math.random() * 10);
+                perso2 = (int) (Math.random() * 15);
+                while (victimes[perso2].etreMort() || perso1 == perso2) {
+                    perso2 = (int) (Math.random() * 15);
                 }
             }
+
+
             System.out.println("\n Personnage 1 " + victimes[perso1].getNom() + " attaque personnage 2 : " + victimes[perso2].getNom() + "\n");
             System.out.println(victimes[perso1].toString());
             System.out.println(victimes[perso2].toString());
@@ -130,6 +145,14 @@ class Principale {
             System.out.println(victimes[perso2].toString() + "\n");
 
         }
+
+        System.out.println("Fin du combat");
+        System.out.println("Il reste " + nbVivants() + " vivants");
+        for (int i = 0; i < victimes.length; i++) {
+            if (!victimes[i].etreMort())
+                System.out.println(victimes[i].getNom() + " est vivant");
+        }
+
     }
 }
 

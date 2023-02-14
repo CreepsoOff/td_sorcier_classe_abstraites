@@ -10,8 +10,9 @@ class Magicien extends Sorcier implements SuperPouvoir {
      *
      * @return pouvoir * le superPouvoir du magicien
      */
+    @Override
     public double getPouvoir() {
-        return getPouvoir() * SuperPouvoir.extra;
+        return super.getPouvoir() * SuperPouvoir.EXTRA;
     }
 
     /**
@@ -19,7 +20,7 @@ class Magicien extends Sorcier implements SuperPouvoir {
      *
      * @return le pouvoir du magicien * un bonus (nombre aleatoire entre 0 et 1)
      */
-    public double sort() {
+    public double lancerSort() {
         return Math.random() * getPouvoir();
     }
 
@@ -32,7 +33,7 @@ class Magicien extends Sorcier implements SuperPouvoir {
      * @param p le personnage adverse
      */
     public void attaque(Victime v) {
-        if (!mort())
+        if (!etreMort())
             addVie(v.subitCharme((int) (getVie() * getPouvoir() / 2)));
     }
 
@@ -45,8 +46,23 @@ class Magicien extends Sorcier implements SuperPouvoir {
      * @return Math.random()*sort()
      */
     public int subitCharme(int coup) {
-        return (int) (Math.random() * sort());
+        return (int) (Math.random() * lancerSort());
     }
 
+    public String toString() {
+        return this.etreMort() ? "Magicien " + this.getNom() + " est mort" : "Je m'appelle " + this.getNom() + " (Magicien) et j'ai " + this.getVie() + " points de vie";
+    }
+
+///**
+//     * methode executee par un magicien lorsqu'il est frappe
+//     * son super-pouvoir le protege de la frappe et il inflige
+//     * un sort et une valeur bonus
+//     *
+//     * @param coup la force de la frappe
+//     * @return Math.random()*sort()
+//     */
+//    public int subitFrappe(int coup) {
+//        return (int) (Math.random() * lancerSort());
+//    }
 
 }
