@@ -120,18 +120,18 @@ class Principale {
 
 
         while (nbVivants() >= 2 && trouveMonstres() && trouveGnome_Nain()) {
-            int perso1 = (int) (Math.random() * 15);
+            int perso1 = (int) (Math.random() * 10);
             while (victimes[perso1].etreMort())
-                perso1 = (int) (Math.random() * 15);
+                perso1 = (int) (Math.random() * 10);
 
-            int perso2 = (int) (Math.random() * 15);
+            int perso2 = (int) (Math.random() * 10);
             while (victimes[perso2].etreMort() || perso1 == perso2)
-                perso2 = (int) (Math.random() * 15);
+                perso2 = (int) (Math.random() * 10);
 
             while (victimes[perso1] instanceof Sorcier && victimes[perso2] instanceof Sorcier) {
-                perso2 = (int) (Math.random() * 15);
+                perso2 = (int) (Math.random() * 10);
                 while (victimes[perso2].etreMort() || perso1 == perso2) {
-                    perso2 = (int) (Math.random() * 15);
+                    perso2 = (int) (Math.random() * 10);
                 }
             }
 
